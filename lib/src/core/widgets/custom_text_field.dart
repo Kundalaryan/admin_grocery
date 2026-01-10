@@ -35,7 +35,7 @@ class CustomTextField extends StatelessWidget {
         // UPPERCASE LABEL
         Text(
           label.toUpperCase(),
-          style: GoogleFonts.plusJakartaSans(
+          style: TextStyle(
             fontSize: 12.sp,
             fontWeight: FontWeight.w700,
             color: const Color(0xFF7CA0BA), // Blue-grey label color
@@ -48,7 +48,7 @@ class CustomTextField extends StatelessWidget {
           obscureText: isObscured ?? false,
           validator: validator,
           keyboardType: keyboardType,
-          style: GoogleFonts.plusJakartaSans(
+          style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
             color: const Color(0xFF1A2B47),

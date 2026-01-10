@@ -20,7 +20,7 @@ class OrdersScreen extends ConsumerWidget {
         elevation: 0,
         title: Text(
           "Orders",
-          style: GoogleFonts.plusJakartaSans(
+          style: TextStyle(
             fontSize: 20.sp,
             fontWeight: FontWeight.w800,
             color: const Color(0xFF1A2B47),
@@ -42,7 +42,7 @@ class OrdersScreen extends ConsumerWidget {
               onSubmitted: (value) => controller.fetchOrders(searchQuery: value),
               decoration: InputDecoration(
                 hintText: "Search Order ID, Name...",
-                hintStyle: GoogleFonts.plusJakartaSans(fontSize: 14.sp, color: Colors.grey),
+                hintStyle: TextStyle(fontSize: 14.sp, color: Colors.grey),
                 prefixIcon: const Icon(Icons.search, color: Colors.grey),
                 filled: true,
                 fillColor: Colors.white,
@@ -84,7 +84,7 @@ class OrdersScreen extends ConsumerWidget {
             child: state.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : state.orders.isEmpty
-                ? Center(child: Text("No orders found", style: GoogleFonts.plusJakartaSans()))
+                ? Center(child: Text("No orders found", style: TextStyle()))
                 : RefreshIndicator(
               onRefresh: () async => controller.fetchOrders(),
               child: ListView.builder(
@@ -126,7 +126,7 @@ class _FilterChip extends StatelessWidget {
         child: Center(
           child: Text(
             label,
-            style: GoogleFonts.plusJakartaSans(
+            style: TextStyle(
               fontSize: 13.sp,
               fontWeight: FontWeight.w600,
               color: isSelected ? Colors.white : const Color(0xFF64748B),

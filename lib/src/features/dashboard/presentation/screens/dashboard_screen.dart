@@ -36,11 +36,11 @@ class DashboardScreen extends ConsumerWidget {
               children: [
                 Text(
                   "Good Morning,",
-                  style: GoogleFonts.plusJakartaSans(fontSize: 12.sp, color: Colors.grey),
+                  style: TextStyle(fontSize: 12.sp, color: Colors.grey),
                 ),
                 Text(
                   "Store Manager",
-                  style: GoogleFonts.plusJakartaSans(
+                  style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w700,
                     color: Colors.black,
@@ -100,7 +100,7 @@ class DashboardScreen extends ConsumerWidget {
                             SizedBox(width: 8.w),
                             Text(
                               "Total Cash Collected",
-                              style: GoogleFonts.plusJakartaSans(
+                              style: TextStyle(
                                 color: const Color(0xFF64748B),
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.w500,
@@ -114,7 +114,7 @@ class DashboardScreen extends ConsumerWidget {
                           children: [
                             Text(
                               currencyFormat.format(state.data!.totalCashCollected),
-                              style: GoogleFonts.plusJakartaSans(
+                              style: TextStyle(
                                 fontSize: 28.sp,
                                 fontWeight: FontWeight.w800,
                                 color: const Color(0xFF0F172A),
@@ -211,14 +211,14 @@ class DashboardScreen extends ConsumerWidget {
                       children: [
                         Text(
                           "Cancelled Orders",
-                          style: GoogleFonts.plusJakartaSans(
+                          style: TextStyle(
                             color: const Color(0xFF64748B),
                             fontSize: 13.sp,
                           ),
                         ),
                         Text(
                           "${state.data!.cancelledOrders}",
-                          style: GoogleFonts.plusJakartaSans(
+                          style: TextStyle(
                             color: const Color(0xFF0F172A),
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w800,

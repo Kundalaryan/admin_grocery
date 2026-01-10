@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../../core/widgets/app_image.dart';
 import '../../data/product_model.dart';
-import 'edit_product_dialog.dart'; // <--- Import the dialog
+import 'edit_product_dialog.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductItem product;
@@ -11,7 +12,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Determine Status using .stock
+    // Determine Status
     String statusText = "In Stock";
     Color statusColor = Colors.green;
     Color statusBg = Colors.green.withOpacity(0.1);
@@ -26,7 +27,6 @@ class ProductCard extends StatelessWidget {
       statusBg = Colors.red.withOpacity(0.1);
     }
 
-    // WRAP WITH GESTURE DETECTOR
     return GestureDetector(
       onTap: () {
         showDialog(
@@ -50,17 +50,14 @@ class ProductCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // 1. Image
-            Container(
-              height: 60.w,
-              width: 60.w,
-              decoration: BoxDecoration(
-                color: const Color(0xFFF8F9FB),
-                borderRadius: BorderRadius.circular(12.r),
-                image: DecorationImage(
-                  image: NetworkImage(product.imageUrl),
-                  fit: BoxFit.cover,
-                ),
+            // 1. Image with HERO Animation
+            Hero(
+              tag: 'product_img_${product.id}', // <--- Unique ID for animation
+              child: AppImage(
+                imageUrl: product.imageUrl,
+                width: 60.w,
+                height: 60.w,
+                borderRadius: 12,
               ),
             ),
 
@@ -75,7 +72,7 @@ class ProductCard extends StatelessWidget {
                     product.name,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.plusJakartaSans(
+                    style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 14.sp,
                       color: const Color(0xFF1A2B47),
@@ -83,7 +80,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   Text(
                     "${product.category} • \$${product.price} / ${product.unit}",
-                    style: GoogleFonts.plusJakartaSans(
+                    style: TextStyle(
                       fontSize: 12.sp,
                       color: const Color(0xFFA0AEC0),
                     ),
@@ -91,7 +88,7 @@ class ProductCard extends StatelessWidget {
                   SizedBox(height: 4.h),
                   Text(
                     "Qty: ${product.stock}",
-                    style: GoogleFonts.plusJakartaSans(
+                    style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w700,
                       color: const Color(0xFF1A2B47),
@@ -110,7 +107,7 @@ class ProductCard extends StatelessWidget {
               ),
               child: Text(
                 statusText,
-                style: GoogleFonts.plusJakartaSans(
+                style: TextStyle(
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w700,
                   color: statusColor,

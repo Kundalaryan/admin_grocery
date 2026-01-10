@@ -21,11 +21,27 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
   final _descController = TextEditingController();
   final _unitValueController = TextEditingController(text: "1");
 
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _priceController.dispose();
+    _stockController.dispose();
+    _descController.dispose();
+    _unitValueController.dispose();
+    super.dispose();
+  }
+
   // State variables
   String? _selectedCategory;
   String _selectedUnit = "pc";
 
-  final List<String> _categories = ["Fruit", "Vegetable", "Dairy", "Bakery", "Beverages"];
+  final List<String> _categories = [
+    "Fruit",
+    "Vegetable",
+    "Dairy",
+    "Bakery",
+    "Beverages",
+  ];
   final List<String> _units = ["pc", "kg", "g", "ltr", "ml", "box", "pack"];
 
   @override
@@ -43,7 +59,7 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
         ),
         title: Text(
           "Add New Product",
-          style: GoogleFonts.plusJakartaSans(
+          style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w800,
             color: const Color(0xFF1A2B47),
@@ -64,12 +80,12 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
             },
             child: Text(
               "Reset",
-              style: GoogleFonts.plusJakartaSans(
+              style: TextStyle(
                 color: const Color(0xFF1986E6),
                 fontWeight: FontWeight.w600,
               ),
             ),
-          )
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -96,10 +112,17 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
                 value: _selectedCategory,
                 decoration: _inputDecoration("Select a category"),
                 icon: const Icon(Icons.keyboard_arrow_down),
-                items: _categories.map((cat) => DropdownMenuItem(
-                  value: cat,
-                  child: Text(cat, style: GoogleFonts.plusJakartaSans(fontSize: 14.sp)),
-                )).toList(),
+                items: _categories
+                    .map(
+                      (cat) => DropdownMenuItem(
+                        value: cat,
+                        child: Text(
+                          cat,
+                          style: TextStyle(fontSize: 14.sp),
+                        ),
+                      ),
+                    )
+                    .toList(),
                 onChanged: (val) => setState(() => _selectedCategory = val),
                 validator: (val) => val == null ? "Required" : null,
               ),
@@ -129,10 +152,19 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
                     child: DropdownButtonFormField<String>(
                       value: _selectedUnit,
                       decoration: _inputDecoration("Type"),
-                      items: _units.map((u) => DropdownMenuItem(
-                        value: u,
-                        child: Text(u, style: GoogleFonts.plusJakartaSans(fontSize: 14.sp)),
-                      )).toList(),
+                      items: _units
+                          .map(
+                            (u) => DropdownMenuItem(
+                              value: u,
+                              child: Text(
+                                u,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
                       onChanged: (val) => setState(() => _selectedUnit = val!),
                     ),
                   ),
@@ -198,7 +230,13 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
         padding: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10, offset: Offset(0, -5))],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              offset: Offset(0, -5),
+            ),
+          ],
         ),
         child: SizedBox(
           height: 50.h,
@@ -206,11 +244,20 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
             onPressed: isLoading ? null : _submitForm,
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF1986E6),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12.r),
+              ),
             ),
             child: isLoading
                 ? const CircularProgressIndicator(color: Colors.white)
-                : Text("Add Product", style: GoogleFonts.plusJakartaSans(fontSize: 16.sp, fontWeight: FontWeight.w700, color: Colors.white)),
+                : Text(
+                    "Add Product",
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
           ),
         ),
       ),
@@ -220,31 +267,37 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
   // --- LOGIC ---
   Future<void> _submitForm() async {
     if (_formKey.currentState!.validate()) {
-
       // --- FIX: REMOVED SPACE (e.g. "500"+"g" = "500g") ---
       String finalUnit = "${_unitValueController.text.trim()}$_selectedUnit";
 
-      final success = await ref.read(inventoryProvider.notifier).addProduct(
-        name: _nameController.text,
-        category: _selectedCategory!,
-        unit: finalUnit, // Send string without space
-        price: double.tryParse(_priceController.text) ?? 0,
-        stock: int.tryParse(_stockController.text) ?? 0,
-        description: _descController.text,
-      );
+      final success = await ref
+          .read(inventoryProvider.notifier)
+          .addProduct(
+            name: _nameController.text,
+            category: _selectedCategory!,
+            unit: finalUnit, // Send string without space
+            price: double.tryParse(_priceController.text) ?? 0,
+            stock: int.tryParse(_stockController.text) ?? 0,
+            description: _descController.text,
+          );
 
       if (success && mounted) {
         Navigator.pop(context); // Go back to Inventory Screen
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Product Added Successfully"), backgroundColor: Colors.green),
+          const SnackBar(
+            content: Text("Product Added Successfully"),
+            backgroundColor: Colors.green,
+          ),
         );
       }
     }
   }
 
   // --- STYLES ---
-  TextStyle get _labelStyle => GoogleFonts.plusJakartaSans(
-    fontSize: 14.sp, fontWeight: FontWeight.w700, color: const Color(0xFF1A2B47),
+  TextStyle get _labelStyle => TextStyle(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w700,
+    color: const Color(0xFF1A2B47),
   );
 
   Widget _buildTextField({
@@ -252,11 +305,17 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
     required String hint,
     TextInputType keyboardType = TextInputType.text,
     int maxLines = 1,
+    TextInputAction? action,
   }) {
+    // 1. CRITICAL FIX: If field is multiline, force keyboard to be multiline
+    final effectiveKeyboardType = maxLines > 1 ? TextInputType.multiline : keyboardType;
+
     return TextFormField(
       controller: controller,
-      keyboardType: keyboardType,
+      keyboardType: effectiveKeyboardType, // Use fixed type
       maxLines: maxLines,
+      // 2. Smart Enter Key (Next for single line, New Line for big box)
+      textInputAction: action ?? (maxLines > 1 ? TextInputAction.newline : TextInputAction.next),
       validator: (val) => val == null || val.isEmpty ? "Required" : null,
       decoration: _inputDecoration(hint),
     );
@@ -265,7 +324,10 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: GoogleFonts.plusJakartaSans(color: Colors.grey.shade400, fontSize: 14.sp),
+      hintStyle: TextStyle(
+        color: Colors.grey.shade400,
+        fontSize: 14.sp,
+      ),
       contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12.r),

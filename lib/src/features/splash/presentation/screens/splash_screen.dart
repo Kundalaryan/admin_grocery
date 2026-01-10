@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/utils/token_storage.dart';
 import '../../../auth/presentation/screens/login_screen.dart';
+import '../../../main_wrapper.dart';
 
 // Note: Later we will move colors to src/core/theme/app_colors.dart
 class AppColors {
@@ -25,13 +27,33 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // 1. Simulate Loading Logic
-    // In a real app, we check "Is User Logged In?" here.
-    Timer(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
+    _checkAuth();
+  }
+
+  Future<void> _checkAuth() async {
+    // 1. Wait a bit for the animation to show (UX)
+    await Future.delayed(const Duration(seconds: 2));
+
+    // 2. Check Storage
+    final token = await TokenStorage.getToken();
+
+    if (!mounted) return;
+
+    if (token != null && token.isNotEmpty) {
+      // 3. Token found -> Go to Dashboard
+      print("✅ Token found, Auto-login");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const MainWrapper()),
+      );
+    } else {
+      // 4. No Token -> Go to Login
+      print("❌ No Token, Go to Login");
+      Navigator.pushReplacement(
+        context,
         MaterialPageRoute(builder: (context) => const LoginScreen()),
       );
-    });
+    }
   }
 
   @override

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 // --- IMPORTS ---
 import '../../../../core/widgets/custom_text_field.dart';
 import '../../../../core/widgets/pattern_background.dart'; // <--- ADD THIS IMPORT
@@ -67,7 +65,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             SizedBox(width: 10.w),
                             Text(
                               "MARKETADMIN",
-                              style: GoogleFonts.plusJakartaSans(
+                              style: TextStyle(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w700,
                                 color: const Color(0xFFA0AEC0),
@@ -81,7 +79,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         // Headlines
                         Text(
                           "Hello,\nWelcome Back!",
-                          style: GoogleFonts.plusJakartaSans(
+                          style: TextStyle(
                             fontSize: 32.sp,
                             fontWeight: FontWeight.w800,
                             height: 1.2,
@@ -91,7 +89,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                         SizedBox(height: 12.h),
                         Text(
                           "Manage your grocery inventory &\nsales easily.",
-                          style: GoogleFonts.plusJakartaSans(
+                          style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w500,
                             color: const Color(0xFF7CA0BA),
@@ -140,7 +138,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             ),
                             child: Text(
                               "Forgot Password?",
-                              style: GoogleFonts.plusJakartaSans(
+                              style: TextStyle(
                                 color: primaryColor,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 14.sp,
@@ -218,7 +216,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               children: [
                                 Text(
                                   "Log In",
-                                  style: GoogleFonts.plusJakartaSans(
+                                  style: TextStyle(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w700,
                                     color: Colors.white,
@@ -240,7 +238,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             children: [
                               Text(
                                 "Need help? ",
-                                style: GoogleFonts.plusJakartaSans(
+                                style: TextStyle(
                                   color: const Color(0xFF7CA0BA),
                                   fontWeight: FontWeight.w600,
                                   fontSize: 14.sp,
@@ -250,7 +248,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                                 onTap: () {},
                                 child: Text(
                                   "Contact Support",
-                                  style: GoogleFonts.plusJakartaSans(
+                                  style: TextStyle(
                                     color: primaryColor,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 14.sp,

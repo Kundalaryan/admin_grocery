@@ -58,7 +58,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
             children: [
               Text(
                 "Update Order Status",
-                style: GoogleFonts.plusJakartaSans(
+                style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w700
                 ),
@@ -113,7 +113,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                       },
                       child: Text(
                         entry.value,
-                        style: GoogleFonts.plusJakartaSans(
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: isCancel ? Colors.red : Colors.white,
                         ),
@@ -145,7 +145,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
         centerTitle: true,
         title: Text(
           "Order #ORD-${widget.orderId}",
-          style: GoogleFonts.plusJakartaSans(
+          style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w800,
             color: const Color(0xFF1A2B47),
@@ -189,8 +189,8 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Customer", style: GoogleFonts.plusJakartaSans(fontSize: 14.sp, fontWeight: FontWeight.w700)),
-                            Text(state.order!.customerPhone, style: GoogleFonts.plusJakartaSans(fontSize: 12.sp, color: Colors.grey)),
+                            Text("Customer", style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700)),
+                            Text(state.order!.customerPhone, style: TextStyle(fontSize: 12.sp, color: Colors.grey)),
                           ],
                         ),
                       ),
@@ -204,7 +204,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                     ],
                   ),
                   const Divider(height: 30),
-                  Text("DELIVERY ADDRESS", style: GoogleFonts.plusJakartaSans(fontSize: 11.sp, fontWeight: FontWeight.w600, color: Colors.grey, letterSpacing: 1.0)),
+                  Text("DELIVERY ADDRESS", style: TextStyle(fontSize: 11.sp, fontWeight: FontWeight.w600, color: Colors.grey, letterSpacing: 1.0)),
                   SizedBox(height: 8.h),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,7 +214,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                       Expanded(
                         child: Text(
                           state.order!.address,
-                          style: GoogleFonts.plusJakartaSans(fontSize: 13.sp, color: const Color(0xFF1A2B47), height: 1.4),
+                          style: TextStyle(fontSize: 13.sp, color: const Color(0xFF1A2B47), height: 1.4),
                         ),
                       ),
                     ],
@@ -240,7 +240,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                       padding: EdgeInsets.symmetric(vertical: 14.h),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
                     ),
-                    child: Text("Invoice", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600, color: Colors.black)),
+                    child: Text("Invoice", style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black)),
                   ),
                 ),
                 SizedBox(width: 12.w),
@@ -257,7 +257,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                       padding: EdgeInsets.symmetric(vertical: 14.h),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
                     ),
-                    child: Text("Update Status", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600, color: Colors.white)),
+                    child: Text("Update Status", style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white)),
                   ),
                 ),
               ],
@@ -294,14 +294,14 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(item.productName, style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700, fontSize: 13.sp)),
-                              Text("Qty: ${item.quantity}", style: GoogleFonts.plusJakartaSans(color: const Color(0xFF1986E6), fontWeight: FontWeight.w600, fontSize: 12.sp)),
+                              Text(item.productName, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.sp)),
+                              Text("Qty: ${item.quantity}", style: TextStyle(color: const Color(0xFF1986E6), fontWeight: FontWeight.w600, fontSize: 12.sp)),
                             ],
                           ),
                         ),
                         Text(
                             currency.format(item.total),
-                            style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700, fontSize: 13.sp)
+                            style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13.sp)
                         ),
                       ],
                     ),
@@ -317,8 +317,8 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Total Amount", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800, fontSize: 16.sp)),
-                      Text(currency.format(state.order!.totalAmount), style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w800, fontSize: 16.sp, color: const Color(0xFF1986E6))),
+                      Text("Total Amount", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16.sp)),
+                      Text(currency.format(state.order!.totalAmount), style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16.sp, color: const Color(0xFF1986E6))),
                     ],
                   ),
                 ],
@@ -345,8 +345,8 @@ class _SummaryRow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: GoogleFonts.plusJakartaSans(color: Colors.grey, fontSize: 13.sp)),
-          Text(value, style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600, fontSize: 13.sp)),
+          Text(label, style: TextStyle(color: Colors.grey, fontSize: 13.sp)),
+          Text(value, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13.sp)),
         ],
       ),
     );

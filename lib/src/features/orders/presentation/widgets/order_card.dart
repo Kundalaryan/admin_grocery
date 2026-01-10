@@ -75,7 +75,7 @@ class OrderCard extends StatelessWidget {
                     children: [
                       Text(
                         "#ORD-${order.id}",
-                        style: GoogleFonts.plusJakartaSans(
+                        style: TextStyle(
                           fontWeight: FontWeight.w800,
                           fontSize: 14.sp,
                           color: const Color(0xFF1A2B47),
@@ -90,7 +90,7 @@ class OrderCard extends StatelessWidget {
                         ),
                         child: Text(
                           _formatStatus(order.status),
-                          style: GoogleFonts.plusJakartaSans(
+                          style: TextStyle(
                             fontSize: 10.sp,
                             fontWeight: FontWeight.w700,
                             color: _getStatusColor(order.status),
@@ -102,7 +102,7 @@ class OrderCard extends StatelessWidget {
                   SizedBox(height: 4.h),
                   Text(
                     order.customerName,
-                    style: GoogleFonts.plusJakartaSans(
+                    style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w500,
                       color: const Color(0xFF64748B),
@@ -114,14 +114,14 @@ class OrderCard extends StatelessWidget {
                     children: [
                       Text(
                         formattedDate,
-                        style: GoogleFonts.plusJakartaSans(
+                        style: TextStyle(
                           fontSize: 12.sp,
                           color: const Color(0xFFA0AEC0),
                         ),
                       ),
                       Text(
                         NumberFormat.simpleCurrency().format(order.totalAmount),
-                        style: GoogleFonts.plusJakartaSans(
+                        style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
                           color: const Color(0xFF1986E6),

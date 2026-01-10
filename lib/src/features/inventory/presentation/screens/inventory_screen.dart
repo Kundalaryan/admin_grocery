@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/widgets/loading_skeleton.dart';
 import '../logic/inventory_controller.dart';
 import '../widgets/product_card.dart';
 import 'add_product_screen.dart';
@@ -59,7 +60,7 @@ class InventoryScreen extends ConsumerWidget {
         elevation: 0,
         title: Text(
           "Inventory Management",
-          style: GoogleFonts.plusJakartaSans(
+          style: TextStyle(
             fontSize: 18.sp,
             fontWeight: FontWeight.w800,
             color: const Color(0xFF1A2B47),
@@ -111,12 +112,12 @@ class InventoryScreen extends ConsumerWidget {
           // --- 2. PRODUCT LIST ---
           Expanded(
             child: state.isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? const LoadingSkeleton()
                 : state.filteredProducts.isEmpty
                 ? Center(
                     child: Text(
                       "No items found",
-                      style: GoogleFonts.plusJakartaSans(),
+                      style: TextStyle(),
                     ),
                   )
                 : RefreshIndicator(
@@ -156,14 +157,14 @@ class InventoryScreen extends ConsumerWidget {
                   children: [
                     Text(
                       "Bulk Update",
-                      style: GoogleFonts.plusJakartaSans(
+                      style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
                     Text(
                       "Download Template",
-                      style: GoogleFonts.plusJakartaSans(
+                      style: TextStyle(
                         fontSize: 13.sp,
                         color: const Color(0xFF1986E6),
                         fontWeight: FontWeight.w600,
@@ -174,7 +175,7 @@ class InventoryScreen extends ConsumerWidget {
                 SizedBox(height: 8.h),
                 Text(
                   "Update stock instantly via CSV.",
-                  style: GoogleFonts.plusJakartaSans(
+                  style: TextStyle(
                     fontSize: 13.sp,
                     color: Colors.grey,
                   ),
@@ -209,7 +210,7 @@ class InventoryScreen extends ConsumerWidget {
                                 SizedBox(height: 8.h),
                                 Text(
                                   "Tap to upload or drag and drop",
-                                  style: GoogleFonts.plusJakartaSans(
+                                  style: TextStyle(
                                     fontSize: 13.sp,
                                     color: const Color(0xFF1986E6),
                                     fontWeight: FontWeight.w600,
@@ -217,7 +218,7 @@ class InventoryScreen extends ConsumerWidget {
                                 ),
                                 Text(
                                   "CSV files only (Max 5MB)",
-                                  style: GoogleFonts.plusJakartaSans(
+                                  style: TextStyle(
                                     fontSize: 11.sp,
                                     color: Colors.grey,
                                   ),
@@ -243,7 +244,7 @@ class InventoryScreen extends ConsumerWidget {
                     ),
                     child: Text(
                       "Confirm Upload",
-                      style: GoogleFonts.plusJakartaSans(
+                      style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                       ),
@@ -283,7 +284,7 @@ class _FilterTab extends StatelessWidget {
         child: Center(
           child: Text(
             label,
-            style: GoogleFonts.plusJakartaSans(
+            style: TextStyle(
               fontSize: 13.sp,
               fontWeight: FontWeight.w600,
               color: isSelected ? Colors.white : const Color(0xFF64748B),

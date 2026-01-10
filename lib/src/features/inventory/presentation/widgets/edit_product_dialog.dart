@@ -81,7 +81,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("Update Photo", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold, fontSize: 16.sp)),
+              Text("Update Photo", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp)),
               SizedBox(height: 20.h),
 
               // Option 1: Camera
@@ -91,7 +91,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
                   decoration: BoxDecoration(color: const Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(8.r)),
                   child: const Icon(Icons.camera_alt, color: Color(0xFF1986E6)),
                 ),
-                title: Text("Take Photo", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600)),
+                title: Text("Take Photo", style: TextStyle(fontWeight: FontWeight.w600)),
                 onTap: () {
                   Navigator.pop(ctx); // Close sheet
                   _pickImage(ImageSource.camera); // Open Camera
@@ -106,7 +106,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
                   decoration: BoxDecoration(color: const Color(0xFFE3F2FD), borderRadius: BorderRadius.circular(8.r)),
                   child: const Icon(Icons.photo_library, color: Color(0xFF1986E6)),
                 ),
-                title: Text("Choose from Gallery", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600)),
+                title: Text("Choose from Gallery", style: TextStyle(fontWeight: FontWeight.w600)),
                 onTap: () {
                   Navigator.pop(ctx); // Close sheet
                   _pickImage(ImageSource.gallery); // Open Gallery
@@ -182,16 +182,18 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("Edit Item", style: GoogleFonts.plusJakartaSans(fontSize: 20.sp, fontWeight: FontWeight.w800, color: const Color(0xFF1A2B47))),
+              Text("Edit Item", style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.w800, color: const Color(0xFF1A2B47))),
               SizedBox(height: 8.h),
-              Text("Update details for ${widget.product.name}", textAlign: TextAlign.center, style: GoogleFonts.plusJakartaSans(fontSize: 12.sp, color: Colors.grey)),
+              Text("Update details for ${widget.product.name}", textAlign: TextAlign.center, style: TextStyle(fontSize: 12.sp, color: Colors.grey)),
               SizedBox(height: 24.h),
 
               // Image
               Stack(
                 alignment: Alignment.bottomRight,
                 children: [
-                  Container(
+                  Hero( // <--- Add this
+                    tag: 'product_img_${widget.product.id}',
+                  child: Container(
                     height: 100.w, width: 100.w,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
@@ -201,6 +203,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
                         image: _newImageFile != null ? FileImage(_newImageFile!) as ImageProvider : NetworkImage(widget.product.imageUrl),
                       ),
                     ),
+                  ),
                   ),
                   GestureDetector(
                     onTap: isBusy ? null : () => _showImageSourceModal(context), // Use your existing modal function
@@ -259,7 +262,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
                         children: [
                           Text(
                             "Product Status",
-                            style: GoogleFonts.plusJakartaSans(
+                            style: TextStyle(
                                 fontSize: 14.sp, fontWeight: FontWeight.w700, color: const Color(0xFF1A2B47)
                             ),
                           ),
@@ -268,7 +271,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
                             "Toggle to enable or disable item",
                             maxLines: 2, // Allow wrapping if needed
                             overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.plusJakartaSans(
+                            style: TextStyle(
                                 fontSize: 11.sp, color: Colors.grey, height: 1.2
                             ),
                           ),
@@ -284,7 +287,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
                       children: [
                         Text(
                           _isActive ? "Enabled" : "Disabled",
-                          style: GoogleFonts.plusJakartaSans(
+                          style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w600,
                             color: _isActive ? const Color(0xFF1986E6) : Colors.grey,
@@ -320,7 +323,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
                     child: TextButton(
                       onPressed: isBusy ? null : () => Navigator.pop(context),
                       style: TextButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 14.h), backgroundColor: const Color(0xFFF1F5F9), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r))),
-                      child: Text("Cancel", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700, color: const Color(0xFF1A2B47))),
+                      child: Text("Cancel", style: TextStyle(fontWeight: FontWeight.w700, color: const Color(0xFF1A2B47))),
                     ),
                   ),
                   SizedBox(width: 12.w),
@@ -330,7 +333,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
                       style: ElevatedButton.styleFrom(padding: EdgeInsets.symmetric(vertical: 14.h), backgroundColor: const Color(0xFF1986E6), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r))),
                       child: isBusy
                           ? SizedBox(height: 20.h, width: 20.h, child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                          : Text("Update Item", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w700, color: Colors.white)),
+                          : Text("Update Item", style: TextStyle(fontWeight: FontWeight.w700, color: Colors.white)),
                     ),
                   ),
                 ],
@@ -342,13 +345,13 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
     );
   }
 
-  TextStyle get _labelStyle => GoogleFonts.plusJakartaSans(fontSize: 10.sp, fontWeight: FontWeight.w700, color: Colors.grey, letterSpacing: 0.5);
+  TextStyle get _labelStyle => TextStyle(fontSize: 10.sp, fontWeight: FontWeight.w700, color: Colors.grey, letterSpacing: 0.5);
 
   Widget _buildInput(TextEditingController controller, {String prefix = ""}) {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.number,
-      style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.w600, fontSize: 16.sp),
+      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
       decoration: InputDecoration(
         prefixText: prefix,
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),

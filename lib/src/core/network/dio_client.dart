@@ -1,9 +1,15 @@
+// lib/src/core/network/dio_client.dart
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import '../utils/token_storage.dart'; // Import your storage
+import 'package:flutter/material.dart'; // Needed for MaterialPageRoute
+
+// --- IMPORTS FOR LOGIC ---
+import '../../../../main.dart'; // To access navigatorKey
+import '../utils/token_storage.dart';
+import '../../features/auth/presentation/screens/login_screen.dart';
 
 class DioClient {
-  // 1. Singleton Pattern (Only one instance of Dio exists globally)
   static final DioClient _instance = DioClient._internal();
   factory DioClient() => _instance;
 
@@ -12,7 +18,7 @@ class DioClient {
   DioClient._internal() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: "https://api.expertsec.in/api/", // Adjust if needed
+        baseUrl: "https://api.expertsec.in/api/",
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
         headers: {
@@ -22,21 +28,16 @@ class DioClient {
       ),
     );
 
-    // 2. Add The "Magic" Interceptor
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          // A. Get Token from Storage
           final token = await TokenStorage.getToken();
-
-          // B. If token exists, add it to Header
           if (token != null && token.isNotEmpty) {
             options.headers['Authorization'] = 'Bearer $token';
           }
 
           if (kDebugMode) {
             print("🚀 [${options.method}] ${options.path}");
-            print("   Token: ${token != null ? 'Attached ✅' : 'Missing ❌'}");
           }
           return handler.next(options);
         },
@@ -48,11 +49,30 @@ class DioClient {
           return handler.next(response);
         },
 
-        onError: (DioException e, handler) {
+        // --- UPDATED ERROR HANDLING ---
+        onError: (DioException e, handler) async {
           if (kDebugMode) {
             print("❌ [${e.response?.statusCode}] ${e.message}");
           }
-          // Optional: If 403/401, maybe logout user automatically?
+
+          // 1. Check for Unauthorized (401) or Forbidden (403)
+          if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
+            if (kDebugMode) {
+              print("🚨 Session Expired. Logging out...");
+            }
+
+            // 2. Clear Token
+            await TokenStorage.clearToken();
+
+            // 3. Force Navigate to Login using Global Key
+            if (navigatorKey.currentState != null) {
+              navigatorKey.currentState!.pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    (route) => false, // Remove all back history
+              );
+            }
+          }
+
           return handler.next(e);
         },
       ),

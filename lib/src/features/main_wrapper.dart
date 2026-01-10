@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// Import your screens here
+// Import your screens
 import 'dashboard/presentation/screens/dashboard_screen.dart';
-import 'inventory/presentation/screens/inventory_screen.dart';
 import 'orders/presentation/screens/orders_screen.dart';
+import 'inventory/presentation/screens/inventory_screen.dart';
 
 class MainWrapper extends StatefulWidget {
   const MainWrapper({super.key});
@@ -15,27 +15,28 @@ class MainWrapper extends StatefulWidget {
 }
 
 class _MainWrapperState extends State<MainWrapper> {
-  // 1. Variable to track which tab is active (0 = Dashboard, 1 = Orders)
   int _currentIndex = 0;
 
-  // 2. List of screens to show
+  // List of screens
   final List<Widget> _pages = [
     const DashboardScreen(),
     const OrdersScreen(),
-    const InventoryScreen(), // Placeholder
-    const Scaffold(body: Center(child: Text("Settings Coming Soon"))),  // Placeholder
+    const InventoryScreen(),
+    // Placeholder for the new Delivery Section
+    const Scaffold(
+      body: Center(child: Text("Delivery Management Coming Soon")),
+    ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 3. INDEXED STACK: Keeps the state of pages alive (doesn't reload when switching)
+      // IndexedStack preserves the state of pages
       body: IndexedStack(
         index: _currentIndex,
         children: _pages,
       ),
 
-      // 4. The Navigation Bar
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -58,11 +59,11 @@ class _MainWrapperState extends State<MainWrapper> {
           selectedItemColor: const Color(0xFF1986E6),
           unselectedItemColor: const Color(0xFFA0AEC0),
           showUnselectedLabels: true,
-          selectedLabelStyle: GoogleFonts.plusJakartaSans(
+          selectedLabelStyle: TextStyle(
               fontSize: 10.sp,
               fontWeight: FontWeight.w700
           ),
-          unselectedLabelStyle: GoogleFonts.plusJakartaSans(
+          unselectedLabelStyle: TextStyle(
               fontSize: 10.sp,
               fontWeight: FontWeight.w500
           ),
@@ -80,9 +81,10 @@ class _MainWrapperState extends State<MainWrapper> {
               icon: Icon(Icons.inventory_2_outlined),
               label: "Inventory",
             ),
+            // --- UPDATED: DELIVERY SECTION ---
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings_outlined),
-              label: "Settings",
+              icon: Icon(Icons.local_shipping_outlined), // Delivery Truck Icon
+              label: "Delivery",
             ),
           ],
         ),

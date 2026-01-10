@@ -50,7 +50,7 @@ class StatCard extends StatelessWidget {
           // Title
           Text(
             title,
-            style: GoogleFonts.plusJakartaSans(
+            style: TextStyle(
               fontSize: 13.sp,
               color: const Color(0xFF64748B),
               fontWeight: FontWeight.w500,
@@ -61,7 +61,7 @@ class StatCard extends StatelessWidget {
           // Value (The Big Number)
           Text(
             value,
-            style: GoogleFonts.plusJakartaSans(
+            style: TextStyle(
               fontSize: 22.sp,
               color: const Color(0xFF0F172A),
               fontWeight: FontWeight.w800,
@@ -72,7 +72,7 @@ class StatCard extends StatelessWidget {
           // Trend Text
           Text(
             trend,
-            style: GoogleFonts.plusJakartaSans(
+            style: TextStyle(
               fontSize: 11.sp,
               color: Colors.green, // Hardcoded green for positive growth
               fontWeight: FontWeight.w600,

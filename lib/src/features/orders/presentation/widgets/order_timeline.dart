@@ -29,8 +29,8 @@ class OrderTimeline extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Order Status", style: GoogleFonts.plusJakartaSans(fontWeight: FontWeight.bold, fontSize: 16.sp)),
-              Text("Edit Status", style: GoogleFonts.plusJakartaSans(color: const Color(0xFF1986E6), fontWeight: FontWeight.w600, fontSize: 13.sp)),
+              Text("Order Status", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp)),
+              Text("Edit Status", style: TextStyle(color: const Color(0xFF1986E6), fontWeight: FontWeight.w600, fontSize: 13.sp)),
             ],
           ),
           SizedBox(height: 20.h),
@@ -78,7 +78,7 @@ class OrderTimeline extends StatelessWidget {
                     children: [
                       Text(
                         labels[index],
-                        style: GoogleFonts.plusJakartaSans(
+                        style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14.sp,
                           color: isCompleted ? const Color(0xFF1A2B47) : Colors.grey,
@@ -88,7 +88,7 @@ class OrderTimeline extends StatelessWidget {
                         SizedBox(height: 2.h),
                         Text(
                           "Completed", // You can put actual dates here if API provides them per status
-                          style: GoogleFonts.plusJakartaSans(fontSize: 11.sp, color: Colors.grey),
+                          style: TextStyle(fontSize: 11.sp, color: Colors.grey),
                         ),
                       ],
                       SizedBox(height: 20.h), // Spacing between items
