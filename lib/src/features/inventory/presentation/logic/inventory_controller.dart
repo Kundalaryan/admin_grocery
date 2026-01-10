@@ -93,9 +93,9 @@ class InventoryController extends StateNotifier<InventoryState> {
 
       String fileName = file.path.split('/').last;
 
-      // Prepare Form Data for File Upload
       FormData formData = FormData.fromMap({
-        "file": await MultipartFile.fromFile(
+        // CRITICAL FIX: Changed "file" to "File" to match Spring Boot error
+        "File": await MultipartFile.fromFile(
           file.path,
           filename: fileName,
         ),
@@ -109,16 +109,17 @@ class InventoryController extends StateNotifier<InventoryState> {
       state = state.copyWith(isUploading: false);
 
       if (response.data['success'] == true) {
-        fetchProducts(); // Refresh list after upload
+        fetchProducts();
         return true;
       }
       return false;
-    } on DioException {
+    } on DioException catch (e) {
+      // Print error to see what happens in debug console
+      print("CSV Upload Error: ${e.response?.data}");
       state = state.copyWith(isUploading: false);
       return false;
     }
-  }
-  Future<bool> addProduct({
+  }  Future<bool> addProduct({
     required String name,
     required String category,
     required String unit,
@@ -152,6 +153,78 @@ class InventoryController extends StateNotifier<InventoryState> {
       }
     } on DioException catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: "Connection Error");
+      return false;
+    }
+  }
+  Future<bool> updateProductDetails(int id, Map<String, dynamic> changes) async {
+    try {
+      state = state.copyWith(isLoading: true);
+
+      final response = await _dio.patch(
+        '/admin/products/$id',
+        data: changes, // <--- Send only the changed fields
+      );
+
+      if (response.data['success'] == true) {
+        await fetchProducts(); // Refresh list to see changes
+        return true;
+      }
+      state = state.copyWith(isLoading: false);
+      return false;
+    } on DioException {
+      state = state.copyWith(isLoading: false);
+      return false;
+    }
+  }
+
+  // 2. UPDATE IMAGE
+  Future<bool> updateProductImage(int id, File imageFile) async {
+    try {
+      state = state.copyWith(isUploading: true);
+
+      String fileName = imageFile.path.split('/').last;
+
+      FormData formData = FormData.fromMap({
+        // Ensure this matches your backend logic (usually "image" or "file")
+        // Based on your previous prompt you said request param "image"
+        "image": await MultipartFile.fromFile(
+          imageFile.path,
+          filename: fileName,
+        ),
+      });
+
+      final response = await _dio.post(
+        '/admin/products/$id/image',
+        data: formData,
+      );
+
+      state = state.copyWith(isUploading: false);
+
+      if (response.data['success'] == true) {
+        return true;
+      }
+      return false;
+    } on DioException catch (e) {
+      print("Image Upload Error: ${e.response?.data}");
+      state = state.copyWith(isUploading: false);
+      return false;
+    }
+  }
+  Future<bool> toggleProductStatus(int id, bool shouldEnable) async {
+    try {
+      // Choose endpoint based on boolean
+      final String path = shouldEnable
+          ? '/admin/products/$id/enable'
+          : '/admin/products/$id/disable';
+
+      final response = await _dio.patch(path); // Using PATCH as per your description
+
+      if (response.data['success'] == true) {
+        // We don't fetchProducts here because the main update function will do it
+        return true;
+      }
+      return false;
+    } on DioException {
       return false;
     }
   }

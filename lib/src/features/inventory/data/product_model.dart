@@ -1,11 +1,14 @@
+// lib/src/features/inventory/data/product_model.dart
+
 class ProductItem {
   final int id;
   final String name;
   final String category;
   final String imageUrl;
   final double price;
-  final int stock; // Changed from 'quantity' to 'stock'
-  final String unit; // Added based on your API
+  final int stock;
+  final String unit;
+  final bool active; // Added active status
 
   ProductItem({
     required this.id,
@@ -15,6 +18,7 @@ class ProductItem {
     required this.price,
     required this.stock,
     required this.unit,
+    required this.active,
   });
 
   factory ProductItem.fromJson(Map<String, dynamic> json) {
@@ -23,14 +27,15 @@ class ProductItem {
       name: json['name'] ?? 'Unknown',
       category: json['category'] ?? 'General',
       unit: json['unit'] ?? '',
-      // Map 'stock' from API to our variable
       stock: json['stock'] ?? 0,
       price: (json['price'] ?? 0).toDouble(),
       imageUrl: json['imageUrl'] ?? 'https://via.placeholder.com/150',
+      active: json['active'] ?? true,
     );
   }
 }
 
+// --- THIS WAS MISSING ---
 class ProductListResponse {
   final bool success;
   final List<ProductItem> products;
