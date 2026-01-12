@@ -180,7 +180,7 @@ class _AddProductScreenState extends ConsumerState<AddProductScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Price (\$)", style: _labelStyle),
+                        Text("Price (\₹)", style: _labelStyle),
                         SizedBox(height: 8.h),
                         _buildTextField(
                           controller: _priceController,

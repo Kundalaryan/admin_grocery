@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/widgets/app_image.dart';
 import '../../data/product_model.dart';
 import 'edit_product_dialog.dart';
@@ -79,7 +78,7 @@ class ProductCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "${product.category} • \$${product.price} / ${product.unit}",
+                    "${product.category} • \₹${product.price} / ${product.unit}",
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: const Color(0xFFA0AEC0),

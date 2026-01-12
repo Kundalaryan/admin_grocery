@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import '../logic/order_detail_controller.dart';
@@ -310,9 +309,9 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                   const Divider(height: 30),
 
                   // Totals
-                  _SummaryRow("Subtotal", currency.format(state.order!.totalAmount)),
-                  _SummaryRow("Delivery Fee", currency.format(0.00)),
-                  _SummaryRow("Tax", currency.format(0.00)),
+                  // _SummaryRow("Subtotal", currency.format(state.order!.totalAmount)),
+                  // _SummaryRow("Delivery Fee", currency.format(0.00)),
+                  // _SummaryRow("Tax", currency.format(0.00)),
                   SizedBox(height: 10.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../../data/order_model.dart';
-import '../screens/order_detail_screen.dart'; // <--- 1. ADD THIS IMPORT
+import '../screens/order_detail_screen.dart';
 
 class OrderCard extends StatelessWidget {
   final OrderItem order;
@@ -21,10 +21,8 @@ class OrderCard extends StatelessWidget {
       // Keep original string if parse fails
     }
 
-    // <--- 2. WRAP WITH GESTURE DETECTOR
     return GestureDetector(
       onTap: () {
-        // Navigate to Detail Screen with the Order ID
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -48,7 +46,7 @@ class OrderCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // 1. Icon Box (Left)
+            // 1. Icon Box
             Container(
               height: 50.h,
               width: 50.h,
@@ -65,11 +63,12 @@ class OrderCard extends StatelessWidget {
 
             SizedBox(width: 16.w),
 
-            // 2. Middle Details
+            // 2. Details Column
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Row: ID and Status
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -81,7 +80,6 @@ class OrderCard extends StatelessWidget {
                           color: const Color(0xFF1A2B47),
                         ),
                       ),
-                      // Status Badge
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                         decoration: BoxDecoration(
@@ -99,16 +97,33 @@ class OrderCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 6.h),
+
+                  // CUSTOMER NAME (Bold)
                   Text(
                     order.customerName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w500,
-                      color: const Color(0xFF64748B),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w700, // Made bolder
+                      color: const Color(0xFF0F172A),
                     ),
                   ),
-                  SizedBox(height: 4.h),
+
+                  // Phone Number (Small, Grey)
+                  if (order.customerPhone.isNotEmpty)
+                    Text(
+                      order.customerPhone,
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                        color: Colors.grey,
+                      ),
+                    ),
+
+                  SizedBox(height: 6.h),
+
+                  // Date and Amount
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -120,7 +135,7 @@ class OrderCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        NumberFormat.simpleCurrency().format(order.totalAmount),
+                          NumberFormat.simpleCurrency(locale: 'en_IN').format(order.totalAmount),
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w700,
@@ -138,8 +153,7 @@ class OrderCard extends StatelessWidget {
     );
   }
 
-  // --- HELPERS FOR STYLING ---
-
+  // Helpers
   Color _getStatusColor(String status) {
     switch (status) {
       case 'ORDER_PLACED': return Colors.orange;

@@ -22,6 +22,12 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
   late TextEditingController _priceController;
   late TextEditingController _stockController;
   late String _selectedCategory;
+  @override
+  void dispose() {
+    _priceController.dispose();
+    _stockController.dispose();
+    super.dispose();
+  }
 
   // NEW STATE VARIABLE
   late bool _isActive;
@@ -216,7 +222,7 @@ class _EditProductDialogState extends ConsumerState<EditProductDialog> {
               // Inputs
               Row(
                 children: [
-                  Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text("PRICE", style: _labelStyle), SizedBox(height: 8.h), _buildInput(_priceController, prefix: "\$ ")])),
+                  Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text("PRICE", style: _labelStyle), SizedBox(height: 8.h), _buildInput(_priceController, prefix: "\₹ ")])),
                   SizedBox(width: 16.w),
                   Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text("STOCK", style: _labelStyle), SizedBox(height: 8.h), _buildInput(_stockController)])),
                 ],

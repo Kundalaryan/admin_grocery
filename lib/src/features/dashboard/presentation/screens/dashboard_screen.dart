@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import '../logic/dashboard_controller.dart';
 import '../widgets/stat_card.dart';
@@ -12,7 +11,7 @@ class DashboardScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(dashboardProvider);
-    final currencyFormat = NumberFormat.simpleCurrency();
+    final currencyFormat = NumberFormat.simpleCurrency(locale: 'en_IN');
 
     return Scaffold(
       backgroundColor: const Color(0xFFF1F5F9),

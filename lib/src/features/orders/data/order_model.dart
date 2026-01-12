@@ -1,16 +1,18 @@
-// 1. The Individual Order Item
+
 class OrderItem {
   final int id;
   final String customerName;
-  final String phone;
+  final String customerPhone; // Updated to match JSON
+  final String address;       // Added to match JSON
   final double totalAmount;
-  final String status; // ORDER_PLACED, PACKED, etc.
+  final String status;
   final String createdAt;
 
   OrderItem({
     required this.id,
     required this.customerName,
-    required this.phone,
+    required this.customerPhone,
+    required this.address,
     required this.totalAmount,
     required this.status,
     required this.createdAt,
@@ -19,8 +21,11 @@ class OrderItem {
   factory OrderItem.fromJson(Map<String, dynamic> json) {
     return OrderItem(
       id: json['id'] ?? 0,
-      customerName: json['customerName'] ?? 'Unknown',
-      phone: json['phone'] ?? '',
+      // Ensure we catch the name. If null, show fallback.
+      customerName: json['customerName'] ?? 'Unknown Customer',
+      // In your JSON, 'phone' is null, but 'customerPhone' has the data.
+      customerPhone: json['customerPhone'] ?? json['phone'] ?? '',
+      address: json['address'] ?? '',
       totalAmount: (json['totalAmount'] ?? 0).toDouble(),
       status: json['status'] ?? 'UNKNOWN',
       createdAt: json['createdAt'] ?? '',
@@ -28,7 +33,7 @@ class OrderItem {
   }
 }
 
-// 2. The Pagination Wrapper (Spring Boot "Page" object)
+// Keep the OrderListResponse as it was
 class OrderListResponse {
   final bool success;
   final List<OrderItem> orders;

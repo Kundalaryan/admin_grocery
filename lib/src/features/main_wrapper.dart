@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 // Import your screens
 import 'dashboard/presentation/screens/dashboard_screen.dart';
+import 'delivery/presentation/screens/delivery_screen.dart';
 import 'orders/presentation/screens/orders_screen.dart';
 import 'inventory/presentation/screens/inventory_screen.dart';
 
@@ -22,10 +23,7 @@ class _MainWrapperState extends State<MainWrapper> {
     const DashboardScreen(),
     const OrdersScreen(),
     const InventoryScreen(),
-    // Placeholder for the new Delivery Section
-    const Scaffold(
-      body: Center(child: Text("Delivery Management Coming Soon")),
-    ),
+    const DeliveryScreen(),
   ];
 
   @override
