@@ -21,12 +21,13 @@ class OrderItem {
   factory OrderItem.fromJson(Map<String, dynamic> json) {
     return OrderItem(
       id: json['id'] ?? 0,
-      // Ensure we catch the name. If null, show fallback.
       customerName: json['customerName'] ?? 'Unknown Customer',
-      // In your JSON, 'phone' is null, but 'customerPhone' has the data.
       customerPhone: json['customerPhone'] ?? json['phone'] ?? '',
       address: json['address'] ?? '',
-      totalAmount: (json['totalAmount'] ?? 0).toDouble(),
+
+      // FIX: Handle both int and double safely
+      totalAmount: (json['totalAmount'] as num?)?.toDouble() ?? 0.0,
+
       status: json['status'] ?? 'UNKNOWN',
       createdAt: json['createdAt'] ?? '',
     );

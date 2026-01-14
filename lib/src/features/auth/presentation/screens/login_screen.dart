@@ -196,6 +196,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                                 // 2. If success, Navigate
                                 if (success && context.mounted) {
+                                  await Future.delayed(const Duration(milliseconds: 300));
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(builder: (context) => const MainWrapper())

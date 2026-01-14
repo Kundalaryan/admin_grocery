@@ -22,8 +22,9 @@ class DashboardData {
       outForDelivery: json['outForDelivery'] ?? 0,
       deliveredOrders: json['deliveredOrders'] ?? 0,
       cancelledOrders: json['cancelledOrders'] ?? 0,
-      // Handle double even if API sends int (e.g., 500 instead of 500.00)
-      totalCashCollected: (json['totalCashCollected'] ?? 0).toDouble(),
+      // FIX: Use (json['x'] as num?)?.toDouble()
+      // This handles both 500 and 500.00 safely
+      totalCashCollected: (json['totalCashCollected'] as num?)?.toDouble() ?? 0.0,
     );
   }
 }
