@@ -48,6 +48,7 @@ class DashboardController extends StateNotifier<DashboardState> {
       print("🚨 Parsing Error: $e");
       print(stacktrace);
 
+
       state = DashboardState(
         isLoading: false,
         errorMessage: "Data Error: Please contact support.", // User friendly message

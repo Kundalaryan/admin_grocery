@@ -22,9 +22,11 @@ class DashboardData {
       outForDelivery: json['outForDelivery'] ?? 0,
       deliveredOrders: json['deliveredOrders'] ?? 0,
       cancelledOrders: json['cancelledOrders'] ?? 0,
-      // FIX: Use (json['x'] as num?)?.toDouble()
-      // This handles both 500 and 500.00 safely
+
+      // --- CRITICAL FIX START ---
+      // Handles "5000" (int) becoming "5000.0" (double) safely
       totalCashCollected: (json['totalCashCollected'] as num?)?.toDouble() ?? 0.0,
+      // --- CRITICAL FIX END ---
     );
   }
 }

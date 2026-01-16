@@ -28,7 +28,12 @@ class ProductItem {
       category: json['category'] ?? 'General',
       unit: json['unit'] ?? '',
       stock: json['stock'] ?? 0,
-      price: (json['price'] ?? 0).toDouble(),
+
+      // --- CRITICAL FIX START ---
+      // Use 'num' to accept both 10 (int) and 10.5 (double)
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      // --- CRITICAL FIX END ---
+
       imageUrl: json['imageUrl'] ?? 'https://via.placeholder.com/150',
       active: json['active'] ?? true,
     );

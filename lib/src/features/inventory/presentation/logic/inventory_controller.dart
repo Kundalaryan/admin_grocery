@@ -66,6 +66,10 @@ class InventoryController extends StateNotifier<InventoryState> {
       }
     } on DioException catch (e) {
       state = state.copyWith(isLoading: false, errorMessage: "Connection Error");
+    } catch (e) {
+      // CATCH PARSING ERRORS
+      print("Inventory Parse Error: $e");
+      state = state.copyWith(isLoading: false, errorMessage: "Data Error");
     }
   }
 

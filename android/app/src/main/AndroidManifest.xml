@@ -14,7 +14,7 @@
         </intent>
     </queries>
     <application
-        android:label="admin_portal"
+        android:label="GetIt Portal"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
